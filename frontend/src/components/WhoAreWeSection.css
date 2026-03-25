@@ -1,0 +1,105 @@
+.who-are-we-section {
+  padding: 93px 84px;
+  background-color: var(--white);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.who-are-we-container {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  justify-content: center;
+}
+
+.who-are-we-card {
+  width: 100%;
+  max-width: 393px;
+  min-height: 394px;
+  background: linear-gradient(185.31deg, rgba(255, 255, 255, 0) 8.63%, rgba(69, 162, 196, 0.2) 121.88%);
+  border-radius: 12px;
+  padding: 59px 26px 48px 26px;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+}
+
+.who-are-we-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.who-are-we-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.who-are-we-heading {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 39px;
+  color: rgba(0, 0, 0, 0.8);
+  margin: 0;
+}
+
+.who-are-we-subheading {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 29px;
+  color: #000000;
+  margin: 0;
+  margin-top: 8px;
+}
+
+.who-are-we-description {
+  font-family: 'Uber Move Text', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  color: #2C2C2C;
+  margin: 0;
+  margin-top: 12px;
+  margin-bottom: 28px;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .who-are-we-section {
+    padding: 60px 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .who-are-we-section {
+    padding: 40px 24px;
+  }
+
+  .who-are-we-card {
+    max-width: 100%;
+    padding: 40px 23px 40px 23px;
+    min-height: 350px;
+  }
+
+  .who-are-we-heading {
+    font-size: 28px;
+    line-height: 34px;
+  }
+
+  .who-are-we-subheading {
+    font-size: 20px;
+    line-height: 26px;
+  }
+
+  .who-are-we-description {
+    font-size: 14px;
+    line-height: 21px;
+    margin-bottom: 20px;
+  }
+}

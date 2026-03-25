@@ -1,0 +1,46 @@
+.achievements {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: clamp(40px, 5vw, 52px) clamp(24px, 4vw, 84px);
+  gap: clamp(24px, 3vw, 36px);
+  border-top: 1px solid #E7E7E7;
+}
+
+.achievements .about-section-title {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 700;
+  font-size: clamp(14px, 1.2vw, 16px);
+  line-height: 21px;
+  letter-spacing: -0.32px;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin: 0;
+}
+
+.achievements-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.achievements-item {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 700;
+  font-size: clamp(14px, 1.2vw, 16px);
+  line-height: 21px;
+  letter-spacing: -0.32px;
+  text-transform: uppercase;
+  color: var(--black);
+}
+
+@media (min-width: 768px) {
+  .achievements-list {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 24px 48px;
+  }
+}

@@ -1,0 +1,99 @@
+.the-lab-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: clamp(40px, 5vw, 52px) clamp(24px, 4vw, 84px);
+  gap: clamp(20px, 2.5vw, 36px);
+  border-top: 1px solid #E7E7E7;
+}
+
+.the-lab-section .about-section-title {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 700;
+  font-size: clamp(14px, 1.2vw, 16px);
+  line-height: 21px;
+  letter-spacing: -0.32px;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin: 0;
+}
+
+.the-lab-image-placeholder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: clamp(150px, 20vw, 199px);
+  background: var(--gray);
+  border-radius: 8px;
+}
+
+.the-lab-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.the-lab-location {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 500;
+  font-size: clamp(14px, 1.2vw, 16px);
+  line-height: 28px;
+  color: var(--black);
+  margin: 0;
+}
+
+.the-lab-hours {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 500;
+  font-size: clamp(14px, 1.2vw, 16px);
+  line-height: 28px;
+  color: var(--gray);
+  margin: 0;
+}
+
+.the-lab-description {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 500;
+  font-size: clamp(14px, 1.2vw, 16px);
+  line-height: 30px;
+  color: var(--black);
+  margin: 0;
+  max-width: 800px;
+}
+
+@media (min-width: 768px) {
+  .the-lab-section {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .the-lab-section .about-section-title {
+    width: 100%;
+  }
+
+  .the-lab-image-placeholder {
+    width: 45%;
+    height: 250px;
+  }
+
+  .the-lab-content {
+    width: 50%;
+    padding-left: 24px;
+  }
+
+  .the-lab-info {
+    width: 100%;
+  }
+
+  .the-lab-description {
+    width: 100%;
+    margin-top: 16px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .the-lab-image-placeholder {
+    height: 300px;
+  }
+}

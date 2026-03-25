@@ -1,0 +1,145 @@
+.hero-section {
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+  padding: 335px 84px 93px 84px; /* 262px + 73px header height */
+  background: var(--gradient-hero);
+  position: relative;
+  min-height: 1029px;
+  overflow: hidden;
+}
+
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+  z-index: 2;
+}
+
+.hero-text {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.hero-title {
+  font-size: 64px;
+  font-weight: 700;
+  color: var(--black);
+  margin: 0;
+  line-height: 1;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+}
+
+.hero-title-accent {
+  color: var(--accent);
+}
+
+.hero-description {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--black);
+  line-height: 40px;
+  margin: 0;
+  max-width: 665px;
+}
+
+.hero-highlight {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.hero-graphic {
+  position: absolute;
+  width: 650px;
+  height: 710px;
+  left: 1200px;
+  top: 130px;
+  z-index: 1;
+}
+
+.hero-graphic svg {
+  width: 100%;
+  height: 100%;
+}
+
+@media (max-width: 1400px) {
+  .hero-graphic {
+    width: 450px;
+    height: 460px;
+    left: 650px;
+    top: 200px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .hero-section {
+    padding: 223px 40px 60px 40px; /* 150px + 73px header height */
+    min-height: auto;
+    gap: 40px;
+  }
+
+  .hero-content {
+    gap: 40px;
+  }
+
+  .hero-text {
+    gap: 20px;
+  }
+
+  .hero-who-are-we-heading {
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 29px;
+    color: #000000;
+    margin: 0;
+  }
+
+  .hero-title {
+    /* IDEAS LAB */
+
+width: 198px;
+height: 38px;
+
+font-family: 'Inter';
+font-style: normal;
+font-weight: 600;
+font-size: 32px;
+line-height: 39px;
+
+color: rgba(0, 0, 0, 0.8);
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+  }
+
+  .hero-description {
+    font-size: 18px;
+    line-height: 32px;
+  }
+
+  .hero-graphic {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-section {
+    padding: 193px 24px 40px 24px; /* 120px + 73px header height */
+  }
+
+  .hero-title {
+    font-size: 36px;
+  }
+
+  .hero-graphic {
+    display: none;
+  }
+}
+

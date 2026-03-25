@@ -1,0 +1,4 @@
+.about-page {
+  padding-top: clamp(80px, 10vw, 110px);
+  min-height: 100vh;
+}

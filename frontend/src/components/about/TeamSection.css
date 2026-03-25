@@ -1,0 +1,101 @@
+.team-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: clamp(40px, 5vw, 52px) clamp(24px, 4vw, 84px);
+  gap: clamp(24px, 3vw, 36px);
+  border-top: 1px solid #E7E7E7;
+}
+
+.team-section .about-section-title {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 700;
+  font-size: clamp(14px, 1.2vw, 16px);
+  line-height: 21px;
+  letter-spacing: -0.32px;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin: 0;
+}
+
+.team-tabs {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: clamp(16px, 4vw, 48px);
+  width: 100%;
+}
+
+.team-tab {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 500;
+  font-size: clamp(14px, 1.5vw, 20px);
+  line-height: 1.4;
+  letter-spacing: -0.32px;
+  color: var(--black);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: clamp(8px, 1vw, 12px) clamp(12px, 2vw, 24px);
+  transition: all 0.2s ease;
+  border-radius: 8px;
+}
+
+.team-tab:hover {
+  color: var(--primary);
+  background: rgba(39, 93, 126, 0.1);
+}
+
+.team-tab.active {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.department-description-container {
+  width: 100%;
+  max-width: 900px;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: clamp(24px, 4vw, 40px);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+  border: 1px solid #Eaeaea;
+  margin-top: clamp(8px, 1vw, 16px);
+}
+
+.department-description-text {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 400;
+  font-size: clamp(16px, 1.8vw, 20px);
+  line-height: 1.7;
+  color: var(--black);
+  margin: 0;
+}
+
+.fade-in {
+  animation: fadeIn 0.4s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.team-hiring-note {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 500;
+  font-size: clamp(12px, 1.1vw, 14px);
+  line-height: 21px;
+  letter-spacing: -0.32px;
+  color: var(--gray);
+  margin: 0;
+  margin-top: clamp(16px, 2vw, 32px);
+}

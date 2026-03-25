@@ -1,0 +1,171 @@
+.footer {
+  background: var(--gradient-section);
+  padding: 93px 84px 93px 84px;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 60px;
+}
+
+.footer-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-cta {
+  gap: 40px;
+}
+
+.footer-cta-title {
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--primary);
+  text-transform: uppercase;
+  margin: 0;
+  line-height: 50px;
+}
+
+.footer-cta-highlight {
+  color: var(--primary);
+}
+
+.footer-contact {
+  justify-content: space-between;
+  height: 422px;
+}
+
+.footer-info-block {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.footer-heading {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--primary);
+  margin: 0;
+  line-height: 30px;
+}
+
+.footer-link {
+  color: var(--black);
+  text-decoration: underline;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 30px;
+  transition: color 0.3s ease;
+}
+
+.footer-link:hover {
+  color: var(--accent);
+}
+
+.footer-text {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--black);
+  margin: 0;
+  line-height: 34px;
+}
+
+.footer-text-gray {
+  color: var(--gray);
+}
+
+.footer-links-column {
+  justify-content: space-between;
+}
+
+.footer-quick-links {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.footer-links-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.footer-nav-link {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--black);
+  text-decoration: underline;
+  line-height: 30px;
+  transition: color 0.3s ease;
+}
+
+.footer-nav-link:hover {
+  color: var(--accent);
+}
+
+.footer-social {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.social-icons {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  align-items: center;
+}
+
+.social-icon-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.3s ease, transform 0.2s ease;
+}
+
+.social-icon-link:hover {
+  opacity: 0.7;
+  transform: translateY(-2px);
+}
+
+.social-icon-link svg {
+  width: 22px;
+  height: 22px;
+}
+
+@media (max-width: 1024px) {
+  .footer {
+    padding: 60px 40px;
+  }
+
+  .footer-container {
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .footer-contact {
+    height: auto;
+    gap: 32px;
+  }
+
+  .footer-cta-title {
+    font-size: 28px;
+    line-height: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer {
+    padding: 40px 24px;
+  }
+
+  .footer-text,
+  .footer-link,
+  .footer-nav-link {
+    font-size: 16px;
+    line-height: 24px;
+  }
+}
+
+

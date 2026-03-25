@@ -1,0 +1,81 @@
+.mission-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.mission-divider {
+  height: 1px;
+  background-color: var(--border);
+  border-radius: 3px;
+  width: 100%;
+}
+
+.mission-container {
+  display: flex;
+  flex-direction: column;
+  gap: 52px;
+  padding: 93px 84px;
+  background: var(--gradient-section);
+}
+
+.mission-section .section-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--primary);
+  text-transform: uppercase;
+  margin: 0;
+  line-height: 21px;
+}
+
+.mission-content {
+  display: flex;
+  flex-direction: column;
+  gap: 52px;
+  max-width: 783px;
+}
+
+.mission-text {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--black);
+  line-height: 40px;
+  margin: 0;
+}
+
+.mission-highlight {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.mission-cta-text {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--black);
+  line-height: 40px;
+  margin: 0;
+}
+
+@media (max-width: 1024px) {
+  .mission-container {
+    padding: 60px 40px;
+    gap: 32px;
+  }
+
+  .mission-content {
+    gap: 32px;
+  }
+}
+
+@media (max-width: 768px) {
+  .mission-container {
+    padding: 40px 24px;
+  }
+
+  .mission-text,
+  .mission-cta-text {
+    font-size: 18px;
+    line-height: 32px;
+  }
+}
+
+
