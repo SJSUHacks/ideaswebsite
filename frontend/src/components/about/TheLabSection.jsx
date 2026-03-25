@@ -11,7 +11,7 @@ function TheLabSection() {
 
       <div className="the-lab-info">
         <p className="the-lab-location">Student Union Building</p>
-        <p className="the-lab-hours">MON-THU 10:30 am - 6:30 pm</p>
+        <p className="the-lab-hours">MON-THU 11:30 am - 6:30 pm</p>
       </div>
 
       <p className="the-lab-description">
