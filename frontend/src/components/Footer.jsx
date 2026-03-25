@@ -29,7 +29,7 @@ function Footer() {
           <div className="footer-info-block">
             <h4 className="footer-heading">Lab hours</h4>
             <p className="footer-text">
-              <span className="footer-text-gray">MON-THU</span>  10:30 am - 6:30 pm
+              <span className="footer-text-gray">MON-THU</span>  11:30 am - 6:30 pm
             </p>
           </div>
         </div>

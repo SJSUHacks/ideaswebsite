@@ -7,7 +7,7 @@ function HeroSection() {
       <div className="hero-content">
         <div className="hero-text">
           <h1 className="hero-title">
-            IDEAS LAB
+            IDEAS
           </h1>
           <h2 className="hero-who-are-we-heading">Who are we</h2>
           <p className="hero-description">
