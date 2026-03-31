@@ -9,7 +9,7 @@ function SVBPCPage() {
         <span className="detail-badge">SILICON VALLEY BUSINESS PLAN COMPETITION</span>
         <h1>Silicon Valley Business Plan Competition</h1>
         <p className="detail-lead">
-          Pitch to investors and compete for $30K. Spring 2026.
+          Pitch to investors and compete for $10k. Spring 2026.
         </p>
 
         <section>
@@ -24,7 +24,7 @@ function SVBPCPage() {
           <ul>
             <li><strong>Written business plan</strong> — Submit a comprehensive plan outlining your venture</li>
             <li><strong>Pitch rounds</strong> — Present to panels of judges and investors</li>
-            <li><strong>$30K prize pool</strong> — Cash awards for top teams</li>
+            <li><strong>$10K prize pool</strong> — Cash awards for top teams</li>
             <li><strong>Investor connections</strong> — Direct access to funding opportunities</li>
             <li><strong>Feedback & coaching</strong> — Refine your pitch with expert guidance</li>
           </ul>

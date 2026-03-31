@@ -148,6 +148,8 @@ function UpcomingEvents() {
                 title={event.title}
                 time={event.timeRange}
                 location={event.location}
+                description={event.description}
+                rsvp={event.rsvp}
               />
             ))}
           </div>
