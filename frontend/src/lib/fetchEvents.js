@@ -101,9 +101,11 @@ export async function fetchEvents(csvUrl) {
           date: event['Date'],
           startTime: event['Start Time'] || '',
           endTime: event['End Time'] || '',
-          timeRange: event['Start Time'] && event['End Time'] 
+          timeRange: event['Start Time'] && event['End Time']
             ? `${event['Start Time']} - ${event['End Time']}`
             : event['Start Time'] || 'Time TBA',
+          description: event['description'] || '',
+          rsvp: event['RSVP ?'] || event['RSVP'] || '',
           dayOfWeek: dateInfo.dayOfWeek,
           dayOfMonth: dateInfo.dayOfMonth,
           month: dateInfo.month,

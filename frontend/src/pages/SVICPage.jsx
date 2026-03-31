@@ -1,5 +1,9 @@
 import { Link } from 'react-router-dom';
 import './DetailPage.css';
+import ImageCarousel from '../components/ImageCarousel';
+
+const svicModules = import.meta.glob('../assets/programs/svic/*.{jpg,jpeg,png,webp,gif}', { eager: true });
+const svicImages = Object.values(svicModules).map(m => ({ src: m.default, alt: 'SVIC' }));
 
 function SVICPage() {
   return (
@@ -19,6 +23,8 @@ function SVICPage() {
           </p>
         </section>
 
+        <ImageCarousel images={svicImages} />
+
         <section>
           <h2>What You'll Get</h2>
           <ul>
@@ -35,6 +41,7 @@ function SVICPage() {
           <p>
             SVIC is open to all SJSU students with a passion project or early-stage idea. The program runs through Spring 2026, with milestones for idea validation, prototype development, and final pitch. Applications open at the start of the semester.
           </p>
+          <a href="https://www.sjsu.edu/svic/" className="apply-btn" target="_blank" rel="noopener noreferrer">Apply Here</a>
         </section>
       </article>
     </div>

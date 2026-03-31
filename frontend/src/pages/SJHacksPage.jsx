@@ -1,5 +1,9 @@
 import { Link } from 'react-router-dom';
 import './DetailPage.css';
+import ImageCarousel from '../components/ImageCarousel';
+
+const imageModules = import.meta.glob('../assets/programs/sjhacks/*.{jpg,jpeg,png,webp,gif}', { eager: true });
+const sjhacksImages = Object.values(imageModules).map(m => ({ src: m.default, alt: 'SJHacks' }));
 
 function SJHacksPage() {
   return (
@@ -30,6 +34,8 @@ function SJHacksPage() {
           </ul>
         </section>
 
+        <ImageCarousel images={sjhacksImages} />
+
         <section>
           <h2>Who Can Participate?</h2>
           <p>
@@ -42,6 +48,7 @@ function SJHacksPage() {
           <p>
             Mark your calendars for Spring 2026. Registration details and event schedule will be announced soon. Follow us on social media and join our mailing list to stay updated.
           </p>
+          <a href="https://sjhacks.vercel.app/" className="apply-btn" target="_blank" rel="noopener noreferrer">Apply Here</a>
         </section>
       </article>
     </div>

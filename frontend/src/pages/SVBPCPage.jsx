@@ -1,5 +1,9 @@
 import { Link } from 'react-router-dom';
 import './DetailPage.css';
+import ImageCarousel from '../components/ImageCarousel';
+
+const svbpcModules = import.meta.glob('../assets/programs/svbpc/*.{jpg,jpeg,png,webp,gif}', { eager: true });
+const svbpcImages = Object.values(svbpcModules).map(m => ({ src: m.default, alt: 'SVBPC' }));
 
 function SVBPCPage() {
   return (
@@ -9,22 +13,24 @@ function SVBPCPage() {
         <span className="detail-badge">SILICON VALLEY BUSINESS PLAN COMPETITION</span>
         <h1>Silicon Valley Business Plan Competition</h1>
         <p className="detail-lead">
-          Pitch to investors and compete for $30K. Spring 2026.
+          Pitch to investors and compete for $10k. Spring 2026.
         </p>
 
         <section>
           <h2>About the Competition</h2>
           <p>
-            The Silicon Valley Business Plan Competition (SVBPC) is IDEAS Club's premier opportunity for student entrepreneurs ready to take their venture to the next level. With a total prize pool of $30,000, this competition connects you directly with angel investors, venture capitalists, and seasoned entrepreneurs who are actively looking to support the next generation of founders.
+            The Silicon Valley Business Plan Competition (SVBPC) is IDEAS Club's premier opportunity for student entrepreneurs ready to take their venture to the next level. With a total prize pool up to $10,000, this competition connects you directly with angel investors, venture capitalists, and seasoned entrepreneurs who are actively looking to support the next generation of founders.
           </p>
         </section>
+
+        <ImageCarousel images={svbpcImages} />
 
         <section>
           <h2>Competition Structure</h2>
           <ul>
             <li><strong>Written business plan</strong> — Submit a comprehensive plan outlining your venture</li>
             <li><strong>Pitch rounds</strong> — Present to panels of judges and investors</li>
-            <li><strong>$30K prize pool</strong> — Cash awards for top teams</li>
+            <li><strong>$10K prize pool</strong> — Cash awards for top teams</li>
             <li><strong>Investor connections</strong> — Direct access to funding opportunities</li>
             <li><strong>Feedback & coaching</strong> — Refine your pitch with expert guidance</li>
           </ul>
@@ -35,6 +41,7 @@ function SVBPCPage() {
           <p>
             SVBPC is ideal for teams with a validated idea, early traction, or a strong business model. Whether you're in tech, social impact, or traditional industries, if you have a plan and the ambition to scale, this competition is for you. Spring 2026 applications open at the start of the semester.
           </p>
+          <a href="https://www.sjsu.edu/svce/programs/svbpc/" className="apply-btn" target="_blank" rel="noopener noreferrer">Apply Here</a>
         </section>
       </article>
     </div>
