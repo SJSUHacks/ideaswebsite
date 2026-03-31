@@ -1,5 +1,9 @@
 import { Link } from 'react-router-dom';
 import './DetailPage.css';
+import ImageCarousel from '../components/ImageCarousel';
+
+const svbpcModules = import.meta.glob('../assets/programs/svbpc/*.{jpg,jpeg,png,webp,gif}', { eager: true });
+const svbpcImages = Object.values(svbpcModules).map(m => ({ src: m.default, alt: 'SVBPC' }));
 
 function SVBPCPage() {
   return (
@@ -18,6 +22,8 @@ function SVBPCPage() {
             The Silicon Valley Business Plan Competition (SVBPC) is IDEAS Club's premier opportunity for student entrepreneurs ready to take their venture to the next level. With a total prize pool up to $10,000, this competition connects you directly with angel investors, venture capitalists, and seasoned entrepreneurs who are actively looking to support the next generation of founders.
           </p>
         </section>
+
+        <ImageCarousel images={svbpcImages} />
 
         <section>
           <h2>Competition Structure</h2>

@@ -1,5 +1,9 @@
 import { Link } from 'react-router-dom';
 import './DetailPage.css';
+import ImageCarousel from '../components/ImageCarousel';
+
+const svicModules = import.meta.glob('../assets/programs/svic/*.{jpg,jpeg,png,webp,gif}', { eager: true });
+const svicImages = Object.values(svicModules).map(m => ({ src: m.default, alt: 'SVIC' }));
 
 function SVICPage() {
   return (
@@ -18,6 +22,8 @@ function SVICPage() {
             The Silicon Valley Innovation Challenge (SVIC) is designed for students who have an idea and the drive to make it real. Unlike traditional competitions that focus only on the pitch, SVIC provides ongoing mentorship, resources, and support to help you develop your project from concept to prototype—and beyond.
           </p>
         </section>
+
+        <ImageCarousel images={svicImages} />
 
         <section>
           <h2>What You'll Get</h2>

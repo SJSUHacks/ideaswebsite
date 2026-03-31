@@ -1,5 +1,9 @@
 import { Link } from 'react-router-dom';
 import './DetailPage.css';
+import ImageCarousel from '../components/ImageCarousel';
+
+const zinnModules = import.meta.glob('../assets/programs/zinnstarter/*.{jpg,jpeg,png,webp,gif}', { eager: true });
+const zinnImages = Object.values(zinnModules).map(m => ({ src: m.default, alt: 'Zinnstarter' }));
 
 function ZinnstarterPage() {
   return (
@@ -29,6 +33,8 @@ function ZinnstarterPage() {
             <li><strong>Cohort experience</strong> — Build alongside other ambitious founders</li>
           </ul>
         </section>
+
+        <ImageCarousel images={zinnImages} />
 
         <section>
           <h2>Ray Zinn</h2>
