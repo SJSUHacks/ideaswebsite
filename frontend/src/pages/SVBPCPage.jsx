@@ -15,7 +15,7 @@ function SVBPCPage() {
         <section>
           <h2>About the Competition</h2>
           <p>
-            The Silicon Valley Business Plan Competition (SVBPC) is IDEAS Club's premier opportunity for student entrepreneurs ready to take their venture to the next level. With a total prize pool of $30,000, this competition connects you directly with angel investors, venture capitalists, and seasoned entrepreneurs who are actively looking to support the next generation of founders.
+            The Silicon Valley Business Plan Competition (SVBPC) is IDEAS Club's premier opportunity for student entrepreneurs ready to take their venture to the next level. With a total prize pool up to $10,000, this competition connects you directly with angel investors, venture capitalists, and seasoned entrepreneurs who are actively looking to support the next generation of founders.
           </p>
         </section>
 
@@ -35,6 +35,7 @@ function SVBPCPage() {
           <p>
             SVBPC is ideal for teams with a validated idea, early traction, or a strong business model. Whether you're in tech, social impact, or traditional industries, if you have a plan and the ambition to scale, this competition is for you. Spring 2026 applications open at the start of the semester.
           </p>
+          <a href="https://www.sjsu.edu/svce/programs/svbpc/" className="apply-btn" target="_blank" rel="noopener noreferrer">Apply Here</a>
         </section>
       </article>
     </div>

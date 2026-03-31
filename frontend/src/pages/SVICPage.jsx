@@ -35,6 +35,7 @@ function SVICPage() {
           <p>
             SVIC is open to all SJSU students with a passion project or early-stage idea. The program runs through Spring 2026, with milestones for idea validation, prototype development, and final pitch. Applications open at the start of the semester.
           </p>
+          <a href="https://www.sjsu.edu/svic/" className="apply-btn" target="_blank" rel="noopener noreferrer">Apply Here</a>
         </section>
       </article>
     </div>

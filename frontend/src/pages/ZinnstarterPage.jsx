@@ -42,6 +42,7 @@ function ZinnstarterPage() {
           <p>
             The Zinnstarter Accelerator runs in Spring 2026. Applications are competitive—we're looking for founders with clear vision, commitment, and the drive to build something lasting. Apply early to secure your spot.
           </p>
+          <a href="https://www.sjsu.edu/svce/programs/zinnstarter.php" className="apply-btn" target="_blank" rel="noopener noreferrer">Apply Here</a>
         </section>
       </article>
     </div>
