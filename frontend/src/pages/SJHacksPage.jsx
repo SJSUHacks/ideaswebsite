@@ -1,5 +1,9 @@
 import { Link } from 'react-router-dom';
 import './DetailPage.css';
+import ImageCarousel from '../components/ImageCarousel';
+
+const imageModules = import.meta.glob('../assets/programs/sjhacks/*.{jpg,jpeg,png,webp,gif}', { eager: true });
+const sjhacksImages = Object.values(imageModules).map(m => ({ src: m.default, alt: 'SJHacks' }));
 
 function SJHacksPage() {
   return (
@@ -29,6 +33,8 @@ function SJHacksPage() {
             <li><strong>Networking</strong> — Connect with recruiters and fellow innovators</li>
           </ul>
         </section>
+
+        <ImageCarousel images={sjhacksImages} />
 
         <section>
           <h2>Who Can Participate?</h2>
