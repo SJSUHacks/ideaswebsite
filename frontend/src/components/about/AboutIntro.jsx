@@ -8,7 +8,7 @@ function AboutIntro() {
         <img src="/ideaslab.jpg" alt="IDEAS Lab" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
       </div>
       <p className="about-intro-description">
-        Being at the very heart of Silicon Valley, IDEAS Club strives to bring interdisciplinary collaboration and push critical thinkers to uplift their passion projects into real world difference. Whether you're just starting out or making your first MVP, we're here for every step of the journey.
+        IDEAS Lab is our on-campus home for building in the heart of Silicon Valley—a collaborative workspace where students across majors meet, prototype, and learn from one another. We exist to help you turn ideas into something tangible, from your first sketch or side project to a polished MVP, with the community and space to make it real.
       </p>
     </section>
   );
