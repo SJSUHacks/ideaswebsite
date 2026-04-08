@@ -15,7 +15,7 @@ function TheLabSection() {
       </div>
 
       <p className="the-lab-description">
-        Being at the very heart of Silicon Valley, IDEAS Club strives to bring interdisciplinary collaboration and push critical thinkers to uplift their passion projects into real world difference. Whether you're just starting out or making your first MVP, we're here for every step of the journey.
+        This is where members drop in to work, host small builds, and connect with others who care about shipping ideas—not just talking about them. Bring your laptop, your hardware, or your questions; the lab is here for focused work and collaboration throughout the week.
       </p>
     </section>
   );
