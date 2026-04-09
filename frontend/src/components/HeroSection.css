@@ -35,13 +35,6 @@
   color: var(--accent);
 }
 
-.hero-description-row {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 32px 40px;
-}
-
 .hero-description {
   font-size: 20px;
   font-weight: 500;
@@ -49,17 +42,6 @@
   line-height: 40px;
   margin: 0;
   max-width: 665px;
-  flex: 1 1 280px;
-}
-
-.hero-team-photo {
-  width: 100%;
-  max-width: min(420px, 100%);
-  height: auto;
-  border-radius: 12px;
-  object-fit: cover;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
-  flex-shrink: 0;
 }
 
 .hero-highlight {
@@ -67,26 +49,54 @@
   font-weight: 700;
 }
 
-.hero-graphic {
-  position: absolute;
-  width: 650px;
-  height: 710px;
-  left: 1200px;
-  top: 130px;
-  z-index: 1;
-}
-
-.hero-graphic svg {
+.hero-graphic img {
   width: 100%;
   height: 100%;
+  object-fit: contain;
+  object-position: center;
+  display: block;
 }
 
-@media (max-width: 1400px) {
+@media (min-width: 1025px) {
+  .hero-section {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: clamp(24px, 4vw, 48px);
+  }
+
+  .hero-content {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+
   .hero-graphic {
-    width: 450px;
-    height: 460px;
-    left: 650px;
-    top: 200px;
+    position: relative;
+    z-index: 1;
+    flex: 0 1 650px;
+    align-self: flex-start;
+    width: min(650px, 46vw);
+    max-width: 100%;
+    height: auto;
+    min-height: 0;
+    aspect-ratio: 650 / 710;
+    /* Line up with the IDEAS title: pull up vs. letterboxing + match cap height */
+    margin-top: -20px;
+  }
+
+  .hero-graphic img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: top center;
+  }
+}
+
+@media (min-width: 1025px) and (max-width: 1400px) {
+  .hero-graphic {
+    flex-basis: 450px;
+    width: min(450px, 46vw);
+    aspect-ratio: 450 / 460;
   }
 }
 
@@ -95,10 +105,12 @@
     padding: 223px 40px 60px 40px; /* 150px + 73px header height */
     min-height: auto;
     gap: 40px;
+    flex-direction: column;
   }
 
   .hero-content {
     gap: 40px;
+    flex: none;
   }
 
   .hero-text {
@@ -137,19 +149,9 @@ flex-grow: 0;
 
   }
 
-  .hero-description-row {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 24px;
-  }
-
   .hero-description {
     font-size: 18px;
     line-height: 32px;
-  }
-
-  .hero-team-photo {
-    max-width: 100%;
   }
 
   .hero-graphic {
