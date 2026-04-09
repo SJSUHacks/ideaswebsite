@@ -80,33 +80,32 @@
     0 16px 48px rgba(69, 162, 196, 0.12);
 }
 
-/* ── Desktop: side-by-side ────────────────────────────────── */
+/* ── Desktop: two-column (text left, image right) ─────────── */
 @media (min-width: 1025px) {
   .hero-section {
     flex-direction: row;
-    align-items: flex-start;
+    align-items: center;
     justify-content: space-between;
     gap: clamp(40px, 5vw, 72px);
+    padding: 160px clamp(48px, 6vw, 100px) 80px;
     min-height: auto;
   }
 
   .hero-content {
     flex: 1 1 0;
     min-width: 0;
+    align-items: flex-start;
   }
 
   .hero-graphic {
     flex: 0 0 auto;
-    align-self: flex-start;
-    width: min(540px, 46vw);
+    width: min(500px, 45vw);
     aspect-ratio: 4 / 3;
-    margin-top: 8px;
+    align-self: center;
   }
-}
 
-@media (min-width: 1025px) and (max-width: 1400px) {
-  .hero-graphic {
-    width: min(460px, 44vw);
+  .hero-graphic::after {
+    transform: translate(10px, 10px);
   }
 }
 
