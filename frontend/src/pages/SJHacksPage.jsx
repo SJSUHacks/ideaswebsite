@@ -48,7 +48,7 @@ function SJHacksPage() {
           <p>
             Mark your calendars for Spring 2026. Registration details and event schedule will be announced soon. Follow us on social media and join our mailing list to stay updated.
           </p>
-          <a href="https://sjhacks.vercel.app/" className="apply-btn" target="_blank" rel="noopener noreferrer">Apply Here</a>
+          <a href="https://www.sjhacks.com/" className="apply-btn" target="_blank" rel="noopener noreferrer">Apply Here</a>
         </section>
       </article>
     </div>
