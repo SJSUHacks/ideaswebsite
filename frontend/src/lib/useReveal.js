@@ -1,14 +1,16 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 const supportsObserver = typeof IntersectionObserver !== 'undefined';
 
 export function useReveal() {
-  const ref = useRef(null);
+  const observerRef = useRef(null);
   const [visible, setVisible] = useState(!supportsObserver);
 
-  useEffect(() => {
-    const el = ref.current;
+  const ref = useCallback(el => {
+    observerRef.current?.disconnect();
+    observerRef.current = null;
     if (!el || !supportsObserver) return;
+
     const observer = new IntersectionObserver(([entry]) => {
       if (entry.isIntersecting) {
         setVisible(true);
@@ -16,8 +18,10 @@ export function useReveal() {
       }
     }, { threshold: 0.15 });
     observer.observe(el);
-    return () => observer.disconnect();
+    observerRef.current = observer;
   }, []);
+
+  useEffect(() => () => observerRef.current?.disconnect(), []);
 
   return [ref, visible];
 }
