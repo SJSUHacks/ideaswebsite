@@ -93,6 +93,20 @@
   color: #1e3a5f;
 }
 
+.detail-content blockquote {
+  margin: 0 0 16px 0;
+  padding: 4px 20px;
+  border-left: 3px solid var(--accent, #45A2C4);
+  background-color: var(--light-bg, #E7F4F7);
+  border-radius: 0 8px 8px 0;
+}
+
+.detail-content blockquote p {
+  font-style: italic;
+  color: #1e3a5f;
+  margin: 0;
+}
+
 .apply-btn {
   display: inline-block;
   margin-top: 16px;

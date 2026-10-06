@@ -1,0 +1,577 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>IDEAS Club — Redesign MVP Comparison</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    /* LOCKED — existing IDEAS brand tokens, unchanged from frontend/src/index.css */
+    --primary: #275D7E;
+    --accent: #45A2C4;
+    --black: #2C2C2C;
+    --gray: #989898;
+    --light-bg: #E7F4F7;
+    --white: #FFFFFF;
+    --border: #D9D9D9;
+
+    --ink: #0F2430; /* new: near-black heading ink derived from --primary, for higher contrast */
+    --gradient-header: linear-gradient(180deg, #8BE8DD 0%, #4FA9EF 74.04%, #4FA9EF 100%); /* LOCKED — existing header gradient from frontend/src/index.css */
+    --space-1: 4px; --space-2: 8px; --space-3: 16px; --space-4: 24px;
+    --space-5: 32px; --space-6: 48px; --space-7: 64px; --space-8: 96px; --space-9: 128px;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--light-bg);
+    color: var(--black);
+    -webkit-font-smoothing: antialiased;
+  }
+  img, svg { max-width: 100%; }
+
+  /* ===== Meta / review chrome (not part of the design mockups themselves) ===== */
+  .meta-bar {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--ink); color: #fff;
+    padding: 14px 24px;
+    display: flex; flex-wrap: wrap; align-items: center; gap: 16px;
+    font-size: 14px;
+  }
+  .meta-bar strong { font-weight: 700; }
+  .meta-note {
+    color: #A9C3CE; font-size: 13px;
+  }
+  .tabs { display: flex; gap: 4px; margin-left: auto; background: rgba(255,255,255,0.1); padding: 4px; border-radius: 8px; }
+  .tab-btn {
+    border: none; background: transparent; color: #cfe3ea;
+    padding: 8px 16px; border-radius: 6px; font-size: 13px; font-weight: 600;
+    cursor: pointer; font-family: inherit;
+  }
+  .tab-btn.active { background: var(--accent); color: #fff; }
+  .intro-panel {
+    background: #fff; border-bottom: 1px solid var(--border);
+    padding: 20px 24px; font-size: 14px; line-height: 1.6; color: #444;
+  }
+  .intro-panel .locked {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--light-bg); border: 1px solid var(--border);
+    border-radius: 6px; padding: 4px 10px; font-size: 12px; font-weight: 600; color: var(--primary);
+    margin-right: 8px;
+  }
+  .placeholder-flag {
+    display: inline-block; background: #FFF3CD; color: #8A6400;
+    border: 1px solid #FFE69C; border-radius: 4px; padding: 1px 6px;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.02em; vertical-align: middle; margin-left: 8px;
+  }
+
+  .variant { display: none; }
+  .variant.active { display: block; }
+
+  /* ===== Shared nav (used by both variants, matches existing Header.jsx structure) ===== */
+  .site-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px var(--space-6);
+    position: relative;
+  }
+  .logo-mark { display: flex; align-items: center; gap: 10px; }
+  .logo-mark svg { width: 22px; height: 23px; }
+  .logo-mark span { font-weight: 800; font-size: 15px; letter-spacing: -0.01em; }
+  .nav-links { display: flex; gap: var(--space-5); list-style: none; margin: 0; padding: 0; }
+  .nav-links a { color: var(--black); text-decoration: none; font-weight: 500; font-size: 14px; }
+  .nav-cta { background: var(--primary); color: #fff; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; font-size: 14px; cursor: pointer; font-family: inherit; }
+
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--accent); display: inline-flex; align-items: center; gap: 8px; margin-bottom: var(--space-3);
+  }
+  .eyebrow::before { content: ''; width: 16px; height: 1px; background: var(--accent); display: inline-block; }
+
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+  .reveal-stagger > * { opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease, transform 0.5s ease; }
+  .reveal-stagger.in > *:nth-child(1) { transition-delay: 0.02s; }
+  .reveal-stagger.in > *:nth-child(2) { transition-delay: 0.10s; }
+  .reveal-stagger.in > *:nth-child(3) { transition-delay: 0.18s; }
+  .reveal-stagger.in > *:nth-child(4) { transition-delay: 0.26s; }
+  .reveal-stagger.in > * { opacity: 1; transform: translateY(0); }
+
+  section { padding: var(--space-8) var(--space-6); }
+
+  /* =========================================================
+     VARIANT A — "Ramp / Mercury" lean: flat, max contrast, bold
+     ========================================================= */
+  #variant-a { background: var(--light-bg); }
+  #variant-a .site-header { background: var(--gradient-header); position: sticky; top: 0; z-index: 10; }
+  #variant-a .site-header .nav-links a, #variant-a .site-header .logo-mark span { color: var(--ink); }
+  #variant-a .site-header .nav-cta { background: var(--ink); }
+
+  #variant-a .hero {
+    text-align: left; max-width: 1180px; margin: 0 auto; padding-top: var(--space-9);
+    display: grid; grid-template-columns: 1.15fr 0.85fr; gap: var(--space-7); align-items: center;
+  }
+  #variant-a .hero h1 {
+    font-size: clamp(44px, 6vw, 84px); line-height: 0.98; font-weight: 900; letter-spacing: -0.03em;
+    color: var(--ink); margin: 0 0 var(--space-4);
+  }
+  #variant-a .hero h1 em { font-style: normal; color: var(--primary); }
+  #variant-a .hero p.lead { font-size: 19px; line-height: 1.6; color: #3f5560; max-width: 480px; margin: 0 0 var(--space-5); }
+  #variant-a .hero-ctas { display: flex; gap: 14px; }
+  #variant-a .btn-primary {
+    background: var(--primary); color: #fff; padding: 16px 28px; border-radius: 10px; font-weight: 700; font-size: 15px;
+    text-decoration: none; display: inline-block; border: none; cursor: pointer; font-family: inherit;
+  }
+  #variant-a .btn-secondary {
+    background: transparent; color: var(--ink); padding: 16px 28px; border-radius: 10px; font-weight: 700; font-size: 15px;
+    text-decoration: none; display: inline-block; border: 2px solid var(--ink); cursor: pointer; font-family: inherit;
+  }
+  #variant-a .hero-visual {
+    aspect-ratio: 1/1; border-radius: 24px; background: var(--primary);
+    position: relative; overflow: hidden;
+  }
+  #variant-a .hero-visual .block { position: absolute; border-radius: 16px; }
+  #variant-a .hero-visual .b1 { width: 60%; height: 40%; top: 8%; left: 8%; background: var(--accent); }
+  #variant-a .hero-visual .b2 { width: 36%; height: 30%; bottom: 10%; left: 8%; background: #fff; opacity: 0.9; }
+  #variant-a .hero-visual .b3 { width: 34%; height: 56%; top: 8%; right: 8%; background: #0F3650; }
+
+  #variant-a .stats-bar {
+    max-width: 1180px; margin: var(--space-8) auto 0; padding: 0;
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    border-top: 2px solid var(--ink); border-bottom: 2px solid var(--ink);
+  }
+  #variant-a .stat { padding: var(--space-5) var(--space-4); border-right: 1px solid var(--border); }
+  #variant-a .stat:last-child { border-right: none; }
+  #variant-a .stat .num { font-size: 40px; font-weight: 900; color: var(--ink); letter-spacing: -0.02em; }
+  #variant-a .stat .label { font-size: 13px; color: var(--gray); font-weight: 600; margin-top: 4px; }
+
+  #variant-a .section-inner { max-width: 1180px; margin: 0 auto; }
+  #variant-a h2.section-title { font-size: clamp(30px, 4vw, 48px); font-weight: 900; letter-spacing: -0.02em; color: var(--ink); margin: 0 0 var(--space-5); }
+
+  #variant-a .event-row {
+    display: flex; align-items: center; gap: var(--space-4);
+    background: #fff; border: 2px solid var(--ink); border-radius: 14px; padding: var(--space-4) var(--space-5);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  #variant-a .event-row:hover { transform: translate(-3px, -3px); box-shadow: 6px 6px 0 var(--ink); }
+  #variant-a .event-date { text-align: center; min-width: 64px; }
+  #variant-a .event-date .d { font-size: 28px; font-weight: 900; color: var(--primary); line-height: 1; }
+  #variant-a .event-date .w { font-size: 12px; font-weight: 700; color: var(--gray); }
+  #variant-a .event-info h3 { margin: 0 0 4px; font-size: 19px; font-weight: 800; color: var(--ink); }
+  #variant-a .event-info p { margin: 0; font-size: 14px; color: var(--gray); }
+  #variant-a .event-rsvp { margin-left: auto; background: var(--ink); color: #fff; padding: 10px 18px; border-radius: 8px; font-weight: 700; font-size: 13px; text-decoration: none; }
+
+  #variant-a .mission-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-4); }
+  #variant-a .mission-card { background: #fff; border: 2px solid var(--ink); border-radius: 14px; padding: var(--space-4); }
+  #variant-a .mission-card .letter { font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700; color: var(--accent); }
+  #variant-a .mission-card h4 { font-size: 19px; font-weight: 800; margin: var(--space-2) 0 var(--space-2); color: var(--ink); }
+  #variant-a .mission-card p { font-size: 14px; color: #52646d; margin: 0; line-height: 1.5; }
+
+  #variant-a .bento { display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(2, 200px); gap: var(--space-3); }
+  #variant-a .bento-tile {
+    border-radius: 16px; padding: var(--space-4); position: relative; overflow: hidden;
+    display: flex; flex-direction: column; justify-content: flex-end; color: #fff;
+    transition: transform 0.2s ease;
+  }
+  #variant-a .bento-tile:hover { transform: scale(1.015); }
+  #variant-a .bento-tile.big { grid-column: span 2; grid-row: span 2; }
+  #variant-a .bento-tile h4 { font-size: 24px; font-weight: 900; margin: 0 0 4px; letter-spacing: -0.01em; }
+  #variant-a .bento-tile.big h4 { font-size: 32px; }
+  #variant-a .bento-tile p { font-size: 13px; margin: 0; opacity: 0.85; }
+  #variant-a .t-sjhacks { background: linear-gradient(135deg, var(--primary), #0F3650); }
+  #variant-a .t-svic { background: var(--accent); }
+  #variant-a .t-svbpc { background: var(--ink); }
+  #variant-a .t-zinn { background: #52808F; }
+
+  #variant-a footer.site-footer { background: var(--ink); color: #cfe3ea; padding: var(--space-7) var(--space-6) var(--space-5); margin-top: var(--space-8); border-radius: 24px 24px 0 0; }
+  #variant-a footer.site-footer .foot-inner { max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: var(--space-6); }
+  #variant-a footer.site-footer h3 { color: #fff; font-size: 26px; font-weight: 900; margin: 0 0 var(--space-3); }
+  #variant-a footer.site-footer a { color: #cfe3ea; }
+
+  /* =========================================================
+     VARIANT B — "Stripe" lean: soft gradient-mesh, editorial
+     ========================================================= */
+  #variant-b { background: linear-gradient(180deg, #fff 0%, var(--light-bg) 100%); }
+  #variant-b .site-header { background: var(--gradient-header); position: sticky; top: 0; z-index: 10; }
+  #variant-b .site-header .nav-links a, #variant-b .site-header .logo-mark span { color: var(--ink); }
+
+  #variant-b .hero {
+    position: relative; text-align: center; max-width: 820px; margin: 0 auto; padding: var(--space-9) var(--space-4) var(--space-8);
+    overflow: hidden;
+  }
+  #variant-b .mesh { position: absolute; border-radius: 50%; filter: blur(70px); opacity: 0.55; z-index: 0; }
+  #variant-b .mesh-1 { width: 420px; height: 420px; background: var(--accent); top: -160px; left: -80px; }
+  #variant-b .mesh-2 { width: 380px; height: 380px; background: #8BE8DD; top: -100px; right: -100px; }
+  #variant-b .mesh-3 { width: 300px; height: 300px; background: var(--primary); opacity: 0.25; bottom: -180px; left: 30%; }
+  #variant-b .hero > * { position: relative; z-index: 1; }
+  #variant-b .hero .eyebrow { justify-content: center; }
+  #variant-b .hero h1 {
+    font-size: clamp(38px, 5.4vw, 68px); line-height: 1.06; font-weight: 800; letter-spacing: -0.025em;
+    color: var(--ink); margin: 0 0 var(--space-4);
+  }
+  #variant-b .hero h1 .accent-text { background: linear-gradient(90deg, var(--primary), var(--accent)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  #variant-b .hero p.lead { font-size: 19px; line-height: 1.65; color: #4a5e68; max-width: 560px; margin: 0 auto var(--space-5); }
+  #variant-b .hero-ctas { display: flex; gap: 14px; justify-content: center; }
+  #variant-b .btn-primary {
+    background: var(--primary); color: #fff; padding: 15px 26px; border-radius: 999px; font-weight: 600; font-size: 15px;
+    text-decoration: none; display: inline-block; border: none; cursor: pointer; font-family: inherit;
+    box-shadow: 0 8px 24px -6px rgba(39,93,126,0.45);
+  }
+  #variant-b .btn-secondary {
+    background: #fff; color: var(--ink); padding: 15px 26px; border-radius: 999px; font-weight: 600; font-size: 15px;
+    text-decoration: none; display: inline-block; border: 1px solid var(--border); cursor: pointer; font-family: inherit;
+  }
+  #variant-b .hero-art {
+    margin: var(--space-7) auto 0; max-width: 900px; height: 280px; border-radius: 20px;
+    background: linear-gradient(135deg, #fff, var(--light-bg));
+    border: 1px solid var(--border); box-shadow: 0 30px 60px -20px rgba(39,93,126,0.25);
+    display: flex; align-items: center; justify-content: center; color: var(--gray); font-size: 13px; font-family: 'JetBrains Mono', monospace;
+  }
+
+  #variant-b .stats-bar {
+    max-width: 920px; margin: 0 auto; padding: var(--space-5) var(--space-5);
+    background: #fff; border: 1px solid var(--border); border-radius: 20px;
+    display: grid; grid-template-columns: repeat(4, 1fr); box-shadow: 0 20px 40px -24px rgba(39,93,126,0.3);
+    transform: translateY(-40px);
+  }
+  #variant-b .stat { text-align: center; }
+  #variant-b .stat .num { font-size: 32px; font-weight: 800; color: var(--primary); }
+  #variant-b .stat .label { font-size: 12.5px; color: var(--gray); margin-top: 4px; }
+
+  #variant-b .section-inner { max-width: 1040px; margin: 0 auto; text-align: center; }
+  #variant-b h2.section-title { font-size: clamp(28px, 3.6vw, 42px); font-weight: 800; letter-spacing: -0.02em; color: var(--ink); margin: 0 0 var(--space-2); }
+  #variant-b .section-sub { color: var(--gray); font-size: 16px; margin: 0 0 var(--space-6); }
+
+  #variant-b .event-row {
+    display: flex; align-items: center; gap: var(--space-4); text-align: left;
+    background: #fff; border: 1px solid var(--border); border-radius: 16px; padding: var(--space-4) var(--space-5);
+    margin-bottom: var(--space-3); transition: box-shadow 0.2s ease, transform 0.2s ease;
+  }
+  #variant-b .event-row:hover { box-shadow: 0 16px 32px -16px rgba(39,93,126,0.35); transform: translateY(-2px); }
+  #variant-b .event-date { text-align: center; min-width: 60px; background: var(--light-bg); border-radius: 10px; padding: 8px 4px; }
+  #variant-b .event-date .d { font-size: 22px; font-weight: 800; color: var(--primary); line-height: 1; }
+  #variant-b .event-date .w { font-size: 11px; font-weight: 700; color: var(--gray); }
+  #variant-b .event-info h3 { margin: 0 0 4px; font-size: 17px; font-weight: 700; color: var(--ink); }
+  #variant-b .event-info p { margin: 0; font-size: 13.5px; color: var(--gray); }
+  #variant-b .event-rsvp { margin-left: auto; background: var(--light-bg); color: var(--primary); padding: 9px 16px; border-radius: 999px; font-weight: 700; font-size: 12.5px; text-decoration: none; }
+
+  #variant-b .mission-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-4); text-align: left; }
+  #variant-b .mission-card { background: #fff; border: 1px solid var(--border); border-radius: 18px; padding: var(--space-5) var(--space-4); transition: transform 0.2s ease, box-shadow 0.2s ease; }
+  #variant-b .mission-card:hover { transform: translateY(-4px); box-shadow: 0 20px 36px -20px rgba(39,93,126,0.3); }
+  #variant-b .mission-card .icon-dot { width: 36px; height: 36px; border-radius: 10px; background: var(--light-bg); display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', monospace; font-weight: 700; color: var(--primary); margin-bottom: var(--space-3); }
+  #variant-b .mission-card h4 { font-size: 17px; font-weight: 700; margin: 0 0 var(--space-2); color: var(--ink); }
+  #variant-b .mission-card p { font-size: 13.5px; color: #5b6e77; margin: 0; line-height: 1.55; }
+
+  #variant-b .bento { display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(2, 190px); gap: var(--space-3); text-align: left; }
+  #variant-b .bento-tile {
+    border-radius: 20px; padding: var(--space-4); position: relative; overflow: hidden;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    background: #fff; border: 1px solid var(--border);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  #variant-b .bento-tile:hover { transform: translateY(-4px); box-shadow: 0 24px 48px -24px rgba(39,93,126,0.4); }
+  #variant-b .bento-tile.big { grid-column: span 2; grid-row: span 2; }
+  #variant-b .bento-tile .tile-mesh { position: absolute; inset: 0; opacity: 0.18; filter: blur(30px); }
+  #variant-b .bento-tile h4 { font-size: 21px; font-weight: 800; margin: 0 0 4px; color: var(--ink); position: relative; }
+  #variant-b .bento-tile.big h4 { font-size: 28px; }
+  #variant-b .bento-tile p { font-size: 13px; margin: 0; color: var(--gray); position: relative; }
+  #variant-b .t-sjhacks .tile-mesh { background: var(--primary); }
+  #variant-b .t-svic .tile-mesh { background: var(--accent); }
+  #variant-b .t-svbpc .tile-mesh { background: #8BE8DD; }
+  #variant-b .t-zinn .tile-mesh { background: #52808F; }
+
+  #variant-b footer.site-footer { max-width: 1040px; margin: var(--space-8) auto 0; padding: var(--space-6) var(--space-5); background: #fff; border: 1px solid var(--border); border-radius: 24px 24px 0 0; }
+  #variant-b footer.site-footer .foot-inner { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: var(--space-6); text-align: left; }
+  #variant-b footer.site-footer h3 { font-size: 24px; font-weight: 800; color: var(--ink); margin: 0 0 var(--space-3); }
+  #variant-b footer.site-footer a { color: var(--primary); }
+
+  @media (max-width: 900px) {
+    #variant-a .hero, #variant-a .mission-grid, #variant-a .stats-bar, #variant-b .mission-grid, #variant-b .stats-bar { grid-template-columns: 1fr 1fr; }
+    #variant-a .bento, #variant-b .bento { grid-template-columns: 1fr 1fr; grid-auto-rows: 160px; }
+    #variant-a .bento-tile.big, #variant-b .bento-tile.big { grid-column: span 2; grid-row: span 1; }
+    .foot-inner { grid-template-columns: 1fr !important; }
+  }
+
+  /* ===== Feedback / decision panel ===== */
+  .decision-panel {
+    max-width: 820px; margin: 0 auto; padding: var(--space-7) var(--space-4) var(--space-8);
+  }
+  .decision-panel h3 { font-size: 20px; font-weight: 800; color: var(--ink); margin: 0 0 var(--space-2); }
+  .decision-panel p.hint { color: #5b6e77; font-size: 14px; margin: 0 0 var(--space-4); }
+  .decision-panel form { background: #fff; border: 1px solid var(--border); border-radius: 16px; padding: var(--space-4); }
+  .choice-row { display: flex; gap: var(--space-3); margin-bottom: var(--space-3); }
+  .choice-option { flex: 1; border: 2px solid var(--border); border-radius: 12px; padding: var(--space-3); cursor: pointer; }
+  .choice-option:has(input:checked) { border-color: var(--primary); background: var(--light-bg); }
+  .choice-option input { margin-right: 8px; }
+  .choice-option .opt-title { font-weight: 700; font-size: 14px; color: var(--ink); }
+  .choice-option .opt-sub { font-size: 12.5px; color: var(--gray); margin-top: 2px; }
+  textarea.notes { width: 100%; border: 1px solid var(--border); border-radius: 10px; padding: 12px; font-family: inherit; font-size: 14px; resize: vertical; min-height: 70px; }
+  .queue-btn { background: var(--primary); color: #fff; border: none; padding: 12px 22px; border-radius: 10px; font-weight: 700; font-size: 14px; cursor: pointer; margin-top: var(--space-3); font-family: inherit; }
+  .queue-status { font-size: 13px; color: var(--primary); margin-top: 8px; min-height: 16px; }
+</style>
+</head>
+<body>
+
+  <div class="meta-bar">
+    <div><strong>IDEAS Club — Redesign MVP Comparison</strong> <span class="meta-note">Decision-only mockup. No code in the real repo has changed.</span></div>
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="variant-a">A · Ramp-leaning</button>
+      <button class="tab-btn" data-tab="variant-b">B · Stripe-leaning</button>
+    </div>
+  </div>
+  <div class="intro-panel">
+    <span class="locked">🔒 Logo unchanged — top-left nav</span>
+    <span class="locked">🔒 Header gradient unchanged (#8BE8DD → #4FA9EF) — top nav bar</span>
+    <span class="locked">🔒 Blue palette unchanged (#275D7E / #45A2C4 / #E7F4F7) — buttons, cards, event dates, backgrounds</span>
+    Both variants share the exact same colors, logo, and content — only typography, spacing, layout density, and motion style differ. New blocks (stats bar, bento-grid Programs) use <span class="placeholder-flag">PLACEHOLDER DATA</span> — real numbers/content needed before build.
+  </div>
+
+  <!-- ============================= VARIANT A ============================= -->
+  <section class="variant active" id="variant-a">
+    <header class="site-header">
+      <div class="logo-mark">
+        <svg viewBox="0 0 19 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M10.5272 0.100395C10.5631 0.100439 10.5962 0.108122 10.618 0.113091C10.6431 0.118834 10.6566 0.12136 10.6688 0.12188L10.6678 0.122856C11.8324 0.159488 13.1455 0.239376 14.3572 0.572075C15.5699 0.905068 16.6894 1.49277 17.4588 2.54864C18.2253 3.60057 18.5956 5.00184 18.7684 6.43145C18.9413 7.86254 18.9175 9.33434 18.8885 10.533C18.8614 11.6914 18.8076 13.026 18.532 14.2791C18.2565 15.532 17.7575 16.714 16.8348 17.5594C15.9136 18.4031 14.7147 18.8317 13.4774 19.0525C12.2402 19.2733 10.9542 19.2878 9.85236 19.2967C8.68384 19.3066 7.2399 19.3037 5.85626 19.0867C4.47409 18.8699 3.13752 18.4381 2.19513 17.5799C1.27659 16.743 0.774294 15.5884 0.492981 14.3621C0.21174 13.136 0.149937 11.8283 0.119934 10.6756C0.0889644 9.46547 0.0730746 7.9702 0.243958 6.52129C0.414648 5.0743 0.772781 3.66086 1.49786 2.62188C2.27235 1.51211 3.41128 0.912276 4.64923 0.575981C5.85259 0.249104 7.1584 0.170182 8.32892 0.11602V0.106255H8.4295L10.5262 0.100395H10.5272Z" fill="black"/>
+          <path d="M14.9826 4.75665C15.2583 4.79946 15.4368 4.9865 15.5461 5.24297C15.6548 5.49821 15.6982 5.82824 15.7024 6.17266C15.7065 6.51799 15.6714 6.88267 15.6223 7.20977C15.3396 9.08714 14.5874 11.0319 12.7863 11.8816C12.992 12.2707 13.1706 12.8249 13.1789 13.3436C13.1875 13.883 13.0119 14.3976 12.4797 14.6316C11.9515 14.8638 11.4529 14.701 11.0305 14.3865C10.6088 14.0724 10.2551 13.6018 10.008 13.201C9.80521 12.8728 9.64354 12.5268 9.49533 12.1736C9.23115 12.8622 8.84965 13.5336 8.34982 14.0731C7.87066 14.5909 7.13227 14.9746 6.4299 14.5838C5.9527 14.3164 5.80529 13.8096 5.82639 13.2879C5.84671 12.7867 6.02203 12.2597 6.22092 11.8836C5.07007 11.3461 4.26396 10.2601 3.84103 9.0711C3.68134 8.62111 3.48723 7.90364 3.37814 7.18926C3.3236 6.83205 3.2904 6.474 3.29318 6.1502C3.29599 5.82733 3.33503 5.53442 3.42795 5.3084C3.54996 5.01116 3.73127 4.84741 3.94846 4.78594C4.16278 4.72537 4.40276 4.76692 4.63791 4.85821C5.10812 5.04082 5.58601 5.43328 5.86642 5.69219C7.31124 7.03112 8.3254 8.8512 9.26193 10.5672C9.46183 10.4477 9.54032 10.4456 9.60959 10.4695C9.66197 10.4877 9.70922 10.5213 9.74142 10.5711H9.7424C10.4371 9.27334 11.1786 7.95513 12.1057 6.80938C12.6018 6.19514 13.2306 5.51454 13.9035 5.09649C14.3574 4.81436 14.7112 4.71465 14.9826 4.75665Z" fill="black"/>
+        </svg>
+        <span>IDEAS</span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Events</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Contact Us</a></li>
+      </ul>
+      <button class="nav-cta">Join Us</button>
+    </header>
+
+    <div class="hero reveal">
+      <div>
+        <span class="eyebrow">SJSU · Est. 2019</span>
+        <h1>Turn your idea into <em>something real.</em></h1>
+        <p class="lead">IDEAS is San José State's entrepreneurship club — hackathons, pitch competitions, and a lab full of people building things, not just talking about them.</p>
+        <div class="hero-ctas">
+          <a href="#" class="btn-primary">Join the club →</a>
+          <a href="#" class="btn-secondary">See upcoming events</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="block b1"></div>
+        <div class="block b2"></div>
+        <div class="block b3"></div>
+      </div>
+    </div>
+
+    <div class="stats-bar reveal-stagger">
+      <div class="stat"><div class="num">4<span class="placeholder-flag">PLACEHOLDER</span></div><div class="label">Flagship Programs</div></div>
+      <div class="stat"><div class="num">500+</div><div class="label">Members Reached</div></div>
+      <div class="stat"><div class="num">12</div><div class="label">Startups Launched</div></div>
+      <div class="stat"><div class="num">2019</div><div class="label">Founded</div></div>
+    </div>
+
+    <section>
+      <div class="section-inner">
+        <span class="eyebrow">What's next</span>
+        <h2 class="section-title">Upcoming Events</h2>
+        <div class="reveal-stagger" style="display:flex; flex-direction:column; gap:14px;">
+          <div class="event-row">
+            <div class="event-date"><div class="d">07</div><div class="w">WED</div></div>
+            <div class="event-info"><h3>IDEAS Community Event: Game Night!!</h3><p>4:00 PM – 6:00 PM · IDEA Lab in the Student Union</p></div>
+            <a href="#" class="event-rsvp">RSVP</a>
+          </div>
+          <div class="event-row">
+            <div class="event-date"><div class="d">14</div><div class="w">WED</div></div>
+            <div class="event-info"><h3>SVIC Info Session</h3><p>4:30 PM – 5:30 PM · IDEA Lab</p></div>
+            <a href="#" class="event-rsvp">RSVP</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-inner">
+        <span class="eyebrow">Who we are</span>
+        <h2 class="section-title">Innovation, Design,<br/>Entrepreneurship, Startups.</h2>
+        <div class="mission-grid reveal-stagger">
+          <div class="mission-card"><div class="letter">01</div><h4>Innovation</h4><p>We back ideas before they're proven — curiosity first.</p></div>
+          <div class="mission-card"><div class="letter">02</div><h4>Design</h4><p>Good products feel obvious in hindsight. We teach that instinct.</p></div>
+          <div class="mission-card"><div class="letter">03</div><h4>Entrepreneurship</h4><p>Risk assessment, pitch decks, and actually shipping.</p></div>
+          <div class="mission-card"><div class="letter">04</div><h4>Startups</h4><p>From Zinnstarter to real companies — we've seen the whole arc.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-inner">
+        <span class="eyebrow">Programs <span class="placeholder-flag">BENTO LAYOUT — CONCEPT</span></span>
+        <h2 class="section-title">Four ways to build.</h2>
+        <div class="bento reveal-stagger">
+          <div class="bento-tile big t-sjhacks"><h4>SJHacks</h4><p>48-hour interdisciplinary hackathon, w/ ACM CS Club</p></div>
+          <div class="bento-tile t-svic"><h4>SVIC</h4><p>Silicon Valley Innovation Challenge</p></div>
+          <div class="bento-tile t-svbpc"><h4>SVBPC</h4><p>Business Plan Competition</p></div>
+          <div class="bento-tile t-zinn"><h4>Zinnstarter</h4><p>Early-stage founder accelerator</p></div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="site-footer reveal">
+      <div class="foot-inner">
+        <div><h3>BECOME A PART OF IDEAS TODAY</h3><a href="#" class="btn-primary" style="margin-top:12px;">Join Us</a></div>
+        <div><h3 style="font-size:16px;">Contact</h3><p>ideas.sjsu@gmail.com</p><p>Student Union, SJSU</p></div>
+        <div><h3 style="font-size:16px;">Quick Links</h3><p><a href="#">About</a></p><p><a href="#">Programs</a></p><p><a href="#">Events</a></p></div>
+      </div>
+    </footer>
+  </section>
+
+  <!-- ============================= VARIANT B ============================= -->
+  <section class="variant" id="variant-b">
+    <header class="site-header">
+      <div class="logo-mark">
+        <svg viewBox="0 0 19 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M10.5272 0.100395C10.5631 0.100439 10.5962 0.108122 10.618 0.113091C10.6431 0.118834 10.6566 0.12136 10.6688 0.12188L10.6678 0.122856C11.8324 0.159488 13.1455 0.239376 14.3572 0.572075C15.5699 0.905068 16.6894 1.49277 17.4588 2.54864C18.2253 3.60057 18.5956 5.00184 18.7684 6.43145C18.9413 7.86254 18.9175 9.33434 18.8885 10.533C18.8614 11.6914 18.8076 13.026 18.532 14.2791C18.2565 15.532 17.7575 16.714 16.8348 17.5594C15.9136 18.4031 14.7147 18.8317 13.4774 19.0525C12.2402 19.2733 10.9542 19.2878 9.85236 19.2967C8.68384 19.3066 7.2399 19.3037 5.85626 19.0867C4.47409 18.8699 3.13752 18.4381 2.19513 17.5799C1.27659 16.743 0.774294 15.5884 0.492981 14.3621C0.21174 13.136 0.149937 11.8283 0.119934 10.6756C0.0889644 9.46547 0.0730746 7.9702 0.243958 6.52129C0.414648 5.0743 0.772781 3.66086 1.49786 2.62188C2.27235 1.51211 3.41128 0.912276 4.64923 0.575981C5.85259 0.249104 7.1584 0.170182 8.32892 0.11602V0.106255H8.4295L10.5262 0.100395H10.5272Z" fill="black"/>
+          <path d="M14.9826 4.75665C15.2583 4.79946 15.4368 4.9865 15.5461 5.24297C15.6548 5.49821 15.6982 5.82824 15.7024 6.17266C15.7065 6.51799 15.6714 6.88267 15.6223 7.20977C15.3396 9.08714 14.5874 11.0319 12.7863 11.8816C12.992 12.2707 13.1706 12.8249 13.1789 13.3436C13.1875 13.883 13.0119 14.3976 12.4797 14.6316C11.9515 14.8638 11.4529 14.701 11.0305 14.3865C10.6088 14.0724 10.2551 13.6018 10.008 13.201C9.80521 12.8728 9.64354 12.5268 9.49533 12.1736C9.23115 12.8622 8.84965 13.5336 8.34982 14.0731C7.87066 14.5909 7.13227 14.9746 6.4299 14.5838C5.9527 14.3164 5.80529 13.8096 5.82639 13.2879C5.84671 12.7867 6.02203 12.2597 6.22092 11.8836C5.07007 11.3461 4.26396 10.2601 3.84103 9.0711C3.68134 8.62111 3.48723 7.90364 3.37814 7.18926C3.3236 6.83205 3.2904 6.474 3.29318 6.1502C3.29599 5.82733 3.33503 5.53442 3.42795 5.3084C3.54996 5.01116 3.73127 4.84741 3.94846 4.78594C4.16278 4.72537 4.40276 4.76692 4.63791 4.85821C5.10812 5.04082 5.58601 5.43328 5.86642 5.69219C7.31124 7.03112 8.3254 8.8512 9.26193 10.5672C9.46183 10.4477 9.54032 10.4456 9.60959 10.4695C9.66197 10.4877 9.70922 10.5213 9.74142 10.5711H9.7424C10.4371 9.27334 11.1786 7.95513 12.1057 6.80938C12.6018 6.19514 13.2306 5.51454 13.9035 5.09649C14.3574 4.81436 14.7112 4.71465 14.9826 4.75665Z" fill="black"/>
+        </svg>
+        <span>IDEAS</span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Events</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Contact Us</a></li>
+      </ul>
+      <button class="nav-cta" style="border-radius:999px;">Join Us</button>
+    </header>
+
+    <div class="hero reveal">
+      <div class="mesh mesh-1"></div>
+      <div class="mesh mesh-2"></div>
+      <div class="mesh mesh-3"></div>
+      <span class="eyebrow">SJSU · Est. 2019</span>
+      <h1>Where student ideas become <span class="accent-text">real companies.</span></h1>
+      <p class="lead">IDEAS is San José State's entrepreneurship club — hackathons, pitch competitions, mentorship, and a lab built for people who'd rather ship than wait.</p>
+      <div class="hero-ctas">
+        <a href="#" class="btn-primary">Join the club</a>
+        <a href="#" class="btn-secondary">See upcoming events</a>
+      </div>
+      <div class="hero-art">hero illustration / product shot placeholder</div>
+    </div>
+
+    <div class="stats-bar reveal-stagger">
+      <div class="stat"><div class="num">4<span class="placeholder-flag">PLACEHOLDER</span></div><div class="label">Flagship Programs</div></div>
+      <div class="stat"><div class="num">500+</div><div class="label">Members Reached</div></div>
+      <div class="stat"><div class="num">12</div><div class="label">Startups Launched</div></div>
+      <div class="stat"><div class="num">2019</div><div class="label">Founded</div></div>
+    </div>
+
+    <section>
+      <div class="section-inner">
+        <span class="eyebrow">What's next</span>
+        <h2 class="section-title">Upcoming Events</h2>
+        <p class="section-sub">Come build with us — everything's open to all majors, no experience required.</p>
+        <div class="reveal-stagger">
+          <div class="event-row">
+            <div class="event-date"><div class="d">07</div><div class="w">WED</div></div>
+            <div class="event-info"><h3>IDEAS Community Event: Game Night!!</h3><p>4:00 PM – 6:00 PM · IDEA Lab in the Student Union</p></div>
+            <a href="#" class="event-rsvp">RSVP</a>
+          </div>
+          <div class="event-row">
+            <div class="event-date"><div class="d">14</div><div class="w">WED</div></div>
+            <div class="event-info"><h3>SVIC Info Session</h3><p>4:30 PM – 5:30 PM · IDEA Lab</p></div>
+            <a href="#" class="event-rsvp">RSVP</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-inner">
+        <span class="eyebrow">Who we are</span>
+        <h2 class="section-title">Innovation, Design, Entrepreneurship, Startups.</h2>
+        <p class="section-sub">Four pillars, one lab.</p>
+        <div class="mission-grid reveal-stagger">
+          <div class="mission-card"><div class="icon-dot">01</div><h4>Innovation</h4><p>We back ideas before they're proven — curiosity first.</p></div>
+          <div class="mission-card"><div class="icon-dot">02</div><h4>Design</h4><p>Good products feel obvious in hindsight. We teach that instinct.</p></div>
+          <div class="mission-card"><div class="icon-dot">03</div><h4>Entrepreneurship</h4><p>Risk assessment, pitch decks, and actually shipping.</p></div>
+          <div class="mission-card"><div class="icon-dot">04</div><h4>Startups</h4><p>From Zinnstarter to real companies — we've seen the whole arc.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-inner">
+        <span class="eyebrow">Programs <span class="placeholder-flag">BENTO LAYOUT — CONCEPT</span></span>
+        <h2 class="section-title">Four ways to build.</h2>
+        <p class="section-sub">Pick a track, or try all four over four years.</p>
+        <div class="bento reveal-stagger">
+          <div class="bento-tile big t-sjhacks"><div class="tile-mesh"></div><h4>SJHacks</h4><p>48-hour interdisciplinary hackathon, w/ ACM CS Club</p></div>
+          <div class="bento-tile t-svic"><div class="tile-mesh"></div><h4>SVIC</h4><p>Silicon Valley Innovation Challenge</p></div>
+          <div class="bento-tile t-svbpc"><div class="tile-mesh"></div><h4>SVBPC</h4><p>Business Plan Competition</p></div>
+          <div class="bento-tile t-zinn"><div class="tile-mesh"></div><h4>Zinnstarter</h4><p>Early-stage founder accelerator</p></div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="site-footer reveal">
+      <div class="foot-inner">
+        <div><h3>Become part of IDEAS</h3><a href="#" class="btn-primary" style="margin-top:12px;">Join Us</a></div>
+        <div><h3 style="font-size:15px;">Contact</h3><p>ideas.sjsu@gmail.com</p><p>Student Union, SJSU</p></div>
+        <div><h3 style="font-size:15px;">Quick Links</h3><p><a href="#">About</a></p><p><a href="#">Programs</a></p><p><a href="#">Events</a></p></div>
+      </div>
+    </footer>
+  </section>
+
+  <!-- ============================= DECISION PANEL ============================= -->
+  <div class="decision-panel">
+    <h3>Which direction should I build?</h3>
+    <p class="hint">Pick one (or tell me to blend specific elements from each) and add any notes — I'll use this to plan the real implementation. Nothing is sent until you click Queue.</p>
+    <form data-lavish-question="redesign-direction" onsubmit="event.preventDefault();
+      const choice = new FormData(event.currentTarget).get('direction');
+      const notes = event.currentTarget.querySelector('[name=notes]').value.trim();
+      if (!choice) return;
+      const msg = 'Build the website redesign using Variant ' + choice + ' as the base direction.' + (notes ? ' Additional notes: ' + notes : '');
+      window.lavish.queuePrompt(msg, { tag: 'choice', text: 'Redesign direction: ' + choice + (notes ? ' — ' + notes : ''), element: event.currentTarget, data: { question: 'redesign-direction', answer: choice, notes } });
+      event.currentTarget.querySelector('.queue-status').textContent = 'Queued — click Send to Agent when ready.';
+    ">
+      <div class="choice-row">
+        <label class="choice-option">
+          <input type="radio" name="direction" value="A (Ramp-leaning)" />
+          <div class="opt-title">Variant A — Ramp-leaning</div>
+          <div class="opt-sub">Flat, bold, max-contrast, hard-edged cards, offset-shadow hovers</div>
+        </label>
+        <label class="choice-option">
+          <input type="radio" name="direction" value="B (Stripe-leaning)" />
+          <div class="opt-title">Variant B — Stripe-leaning</div>
+          <div class="opt-sub">Soft gradient-mesh, rounded/pill shapes, editorial, airy</div>
+        </label>
+      </div>
+      <textarea class="notes" name="notes" placeholder="e.g. &quot;Use A's typography and event cards but B's hero gradient and footer&quot;, or flag anything that feels off"></textarea>
+      <button type="submit" class="queue-btn">Queue this answer</button>
+      <div class="queue-status" role="status"></div>
+    </form>
+  </div>
+
+<script>
+  // Tab switching
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.variant').forEach(v => v.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(btn.dataset.tab).classList.add('active');
+    });
+  });
+
+  // Scroll-reveal demo (moderate animation style agreed with the user)
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
