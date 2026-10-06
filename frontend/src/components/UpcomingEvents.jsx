@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import './UpcomingEvents.css';
 import EventCard from './EventCard';
 import { fetchEvents, getUpcomingEvents, groupEventsByMonth } from '../lib/fetchEvents';
+import { useReveal } from '../lib/useReveal';
 
 const calendarIcon = "https://www.figma.com/api/mcp/asset/3ae456c5-434c-4fe1-badf-091b4a89f77b";
 
@@ -12,6 +13,7 @@ function UpcomingEvents() {
   const [groupedEvents, setGroupedEvents] = useState({});
   const [availableMonths, setAvailableMonths] = useState([]);
   const [currentMonthIndex, setCurrentMonthIndex] = useState(0);
+  const [revealRef, revealed] = useReveal();
 
   // Get Google Sheets CSV URL from environment variable or use default
   const SHEETS_CSV_URL = import.meta.env.VITE_GOOGLE_SHEETS_CSV_URL || '';
@@ -109,8 +111,8 @@ function UpcomingEvents() {
   }
 
   return (
-    <section className="upcoming-events-section">
-      <div className="container">
+    <section className="upcoming-events-section" ref={revealRef}>
+      <div className={`container reveal ${revealed ? 'in' : ''}`}>
         <h2 className="section-title">UPCOMING EVENTS</h2>
         <div className="events-content">
           <div className="events-header">

@@ -1,11 +1,14 @@
 import './MissionSection.css';
 import Button from './Button';
+import { useReveal } from '../lib/useReveal';
 
 function MissionSection() {
+  const [ref, visible] = useReveal();
+
   return (
-    <section className="mission-section">
+    <section className="mission-section" ref={ref}>
       <div className="mission-divider" />
-      <div className="mission-container">
+      <div className={`mission-container reveal ${visible ? 'in' : ''}`}>
         <h2 className="section-title">OUR MISSION</h2>
         <div className="mission-content">
           <p className="mission-text">
