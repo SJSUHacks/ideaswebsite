@@ -20,9 +20,7 @@
   --gradient-section: linear-gradient(182deg, rgba(255, 255, 255, 0) 8.63%, rgba(69, 162, 196, 0.2) 121.88%);
   --gradient-header: linear-gradient(180deg, #8BE8DD 0%, #4FA9EF 74.04%, #4FA9EF 100%);
 
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -45,4 +43,23 @@ body {
 #root {
   width: 100%;
   min-height: 100vh;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.in {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }
