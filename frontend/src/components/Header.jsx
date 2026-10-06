@@ -27,6 +27,7 @@ function Header() {
           <nav className="header-nav">
             <Link to="/" className="header-nav-link">Home</Link>
             <a href="/#events" className="header-nav-link">Events</a>
+            <Link to="/blog" className="header-nav-link">Blog</Link>
             <Link to="/about" className="header-nav-link">About Us</Link>
             <a href="mailto:ideas.sjsu@gmail.com" className="header-nav-link">Contact Us</a>
           </nav>
@@ -73,6 +74,7 @@ function Header() {
         <div className="mobile-menu-nav">
           <Link to="/" className="mobile-menu-link" onClick={closeMenu}>Home</Link>
           <a href="/#events" className="mobile-menu-link" onClick={closeMenu}>Events</a>
+          <Link to="/blog" className="mobile-menu-link" onClick={closeMenu}>Blog</Link>
           <Link to="/about" className="mobile-menu-link" onClick={closeMenu}>About Us</Link>
           <a href="mailto:ideas.sjsu@gmail.com" className="mobile-menu-link" onClick={closeMenu}>Contact Us</a>
         </div>
