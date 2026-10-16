@@ -1,0 +1,117 @@
+/* Figures */
+.blog-post .blog-figure {
+  margin: 32px 0;
+  text-align: center;
+}
+
+.blog-post .blog-figure img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+  border-radius: 12px;
+}
+
+.blog-post .blog-figure figcaption {
+  margin-top: 10px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #666;
+}
+
+.blog-post .blog-figure--logo img,
+.blog-post .blog-figure--diagram img {
+  border-radius: 0;
+}
+
+.blog-post .blog-figure--full img {
+  width: 100%;
+}
+
+.blog-post .blog-figure--float-right {
+  float: right;
+  width: 260px;
+  margin: 4px 0 16px 28px;
+}
+
+.blog-post .blog-figure--float-right img {
+  max-height: 360px;
+  width: 100%;
+  object-fit: cover;
+}
+
+.blog-post .blog-figure-pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  align-items: center;
+  margin: 32px 0;
+}
+
+.blog-post .blog-figure-pair .blog-figure {
+  margin: 0;
+}
+
+.blog-post .blog-tabpanel h2 {
+  clear: both;
+  margin-top: 48px;
+}
+
+.blog-post .blog-tabpanel > :first-child {
+  margin-top: 0;
+}
+
+/* Interview Q&A */
+.blog-post .qa-question {
+  margin: 32px 0 12px;
+  padding-left: 16px;
+  color: #666;
+}
+
+.blog-post .qa-label {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #666;
+}
+
+.blog-post .qa-question + blockquote strong {
+  display: inline;
+  margin-right: 4px;
+  font-size: 12px;
+  font-style: normal;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.blog-post blockquote + blockquote {
+  margin-top: 16px;
+}
+
+.blog-post blockquote p + p {
+  margin-top: 12px;
+}
+
+@media (max-width: 640px) {
+  .blog-post .blog-figure {
+    margin: 24px 0;
+  }
+
+  .blog-post .blog-figure--float-right {
+    float: none;
+    width: 100%;
+    max-width: 260px;
+    margin: 0 auto 24px;
+  }
+
+  .blog-post .blog-figure-pair {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .blog-post .blog-tabpanel h2 {
+    margin-top: 36px;
+  }
+}

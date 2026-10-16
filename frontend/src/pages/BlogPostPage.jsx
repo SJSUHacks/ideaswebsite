@@ -1,6 +1,8 @@
 import { useParams, Link, Navigate } from 'react-router-dom';
 import { getPostBySlug } from '../lib/blog';
+import BlogTabs from '../components/BlogTabs';
 import './DetailPage.css';
+import './BlogPostPage.css';
 
 function formatDate(dateString) {
   if (!dateString) return '';
@@ -19,11 +21,15 @@ function BlogPostPage() {
   return (
     <div className="detail-page">
       <Link to="/blog" className="back-link">← Back to Blog</Link>
-      <article className="detail-content">
+      <article className="detail-content blog-post">
         <span className="detail-badge">{formatDate(post.date)} · {post.author}</span>
         <h1>{post.title}</h1>
         {post.excerpt && <p className="detail-lead">{post.excerpt}</p>}
-        <div dangerouslySetInnerHTML={{ __html: post.html }} />
+        {post.tabs ? (
+          <BlogTabs tabs={post.tabs} />
+        ) : (
+          <div dangerouslySetInnerHTML={{ __html: post.html }} />
+        )}
       </article>
     </div>
   );
