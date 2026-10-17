@@ -18,6 +18,7 @@ import ZinnstarterPage from './pages/ZinnstarterPage';
 import MissionPage from './pages/MissionPage';
 import BlogListPage from './pages/BlogListPage';
 import BlogPostPage from './pages/BlogPostPage';
+import NotFoundPage from './pages/NotFoundPage';
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
         <Route path="/mission" element={<MissionPage />} />
         <Route path="/blog" element={<BlogListPage />} />
         <Route path="/blog/:slug" element={<BlogPostPage />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
       <Footer />
     </div>
