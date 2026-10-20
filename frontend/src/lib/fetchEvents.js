@@ -12,29 +12,60 @@
  */
 
 /**
- * Parse CSV text into an array of objects
+ * Parse CSV text into an array of objects.
+ * Handles quoted fields containing commas, newlines, and "" escaped quotes.
  * @param {string} csvText - Raw CSV text
  * @returns {Array} Array of row objects
  */
-function parseCSV(csvText) {
-  const lines = csvText.trim().split('\n');
-  if (lines.length < 2) return [];
+export function parseCSV(csvText) {
+  const rows = [];
+  let row = [];
+  let field = '';
+  let inQuotes = false;
 
-  // Get headers from first row
-  const headers = lines[0].split(',').map(h => h.trim().replace(/"/g, ''));
-  
-  // Parse data rows
-  const data = [];
-  for (let i = 1; i < lines.length; i++) {
-    const values = lines[i].split(',').map(v => v.trim().replace(/"/g, ''));
-    const row = {};
-    headers.forEach((header, index) => {
-      row[header] = values[index] || '';
-    });
-    data.push(row);
+  for (let i = 0; i < csvText.length; i++) {
+    const char = csvText[i];
+
+    if (inQuotes) {
+      if (char === '"' && csvText[i + 1] === '"') {
+        field += '"';
+        i++;
+      } else if (char === '"') {
+        inQuotes = false;
+      } else {
+        field += char;
+      }
+    } else if (char === '"') {
+      inQuotes = true;
+    } else if (char === ',') {
+      row.push(field);
+      field = '';
+    } else if (char === '\n' || char === '\r') {
+      if (char === '\r' && csvText[i + 1] === '\n') i++;
+      row.push(field);
+      field = '';
+      rows.push(row);
+      row = [];
+    } else {
+      field += char;
+    }
   }
-  
-  return data;
+  if (field !== '' || row.length > 0) {
+    row.push(field);
+    rows.push(row);
+  }
+
+  const nonEmpty = rows.filter(r => r.some(v => v.trim() !== ''));
+  if (nonEmpty.length < 2) return [];
+
+  const headers = nonEmpty[0].map(h => h.trim());
+  return nonEmpty.slice(1).map(values => {
+    const record = {};
+    headers.forEach((header, index) => {
+      record[header] = (values[index] || '').trim();
+    });
+    return record;
+  });
 }
 
 /**
@@ -47,7 +78,8 @@ function formatDate(dateString) {
   
   try {
     const date = new Date(dateString + 'T00:00:00'); // Add time to avoid timezone issues
-    
+    if (Number.isNaN(date.getTime())) return null;
+
     const dayOfWeek = date.toLocaleDateString('en-US', { weekday: 'short' }).toUpperCase();
     const dayOfMonth = date.getDate();
     const month = date.toLocaleDateString('en-US', { month: 'short' });
@@ -92,8 +124,11 @@ export async function fetchEvents(csvUrl) {
     const events = rawEvents
       .map(event => {
         const dateInfo = formatDate(event['Date']);
-        
-        if (!dateInfo) return null;
+
+        if (!dateInfo) {
+          console.warn(`Skipping event "${event['Event Title']}": unusable Date value "${event['Date']}"`);
+          return null;
+        }
         
         return {
           title: event['Event Title'] || 'Untitled Event',
