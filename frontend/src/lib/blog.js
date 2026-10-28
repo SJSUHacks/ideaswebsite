@@ -19,7 +19,7 @@ function parseFrontmatter(raw) {
   return { data, content };
 }
 
-const TAB_MARKER = /<!--\s*tab:\s*([\w-]+)\s*\|\s*(.+?)\s*-->/g;
+const TAB_MARKER = /<!--\s*tab:\s*([\w-]+)\s*\|\s*([^|]+?)\s*(?:\|\s*([^|]+?)\s*\|\s*(.+?)\s*)?-->/g;
 
 function parseTabs(content) {
   const markers = [...content.matchAll(TAB_MARKER)];
@@ -28,7 +28,7 @@ function parseTabs(content) {
   return markers.map((marker, i) => {
     const end = i + 1 < markers.length ? markers[i + 1].index : content.length;
     const body = content.slice(marker.index + marker[0].length, end).trim();
-    return { id: marker[1], label: marker[2], html: renderMarkdown(body) };
+    return { id: marker[1], label: marker[2], title: marker[3] || marker[2], excerpt: marker[4] || '', html: renderMarkdown(body) };
   });
 }
 

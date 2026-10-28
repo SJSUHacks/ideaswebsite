@@ -23,8 +23,8 @@ function BlogPostPage() {
       <Link to="/blog" className="back-link">← Back to Blog</Link>
       <article className="detail-content blog-post">
         <span className="detail-badge">{formatDate(post.date)} · {post.author}</span>
-        <h1>{post.title}</h1>
-        {post.excerpt && <p className="detail-lead">{post.excerpt}</p>}
+        <h1>{post.tabs ? 'IDEAS Club Blog Posts' : post.title}</h1>
+        {!post.tabs && post.excerpt && <p className="detail-lead">{post.excerpt}</p>}
         {post.tabs ? (
           <BlogTabs tabs={post.tabs} />
         ) : (
