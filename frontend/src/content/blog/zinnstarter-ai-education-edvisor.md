@@ -5,7 +5,7 @@ author: IDEAS Club
 excerpt: The first-ever IDEAS Club blog post explores AI's role in education through an interview with Shariq Shah, SJSU alum and founder of AI-enabled textbook publisher Edvisor.
 ---
 
-<!-- tab: edtech-intro | EDTECH Blog Intro -->
+<!-- tab: edtech-intro | EDTECH Blog Intro | AI's Role in Education: Introduction | Are you confused about the role AI is playing in your education? An introduction to our two interviews on Intelligent Tutoring Systems. -->
 
 <figure class="blog-figure blog-figure--illustration"><img src="/images/blog/image1.jpg" alt="Illustration of a robot scanning a stack of documents, labeled Processing" width="1400" height="980" loading="lazy" decoding="async"></figure>
 
@@ -15,13 +15,13 @@ Most students are being encouraged to use AI tools, such as Intelligent Tutoring
 
 The IDEAS Club has interviewed two individuals with expertise in the field.
 
-To better understand this subject, we first interviewed Shariq Shah, founder of [Edvisor.AI](http://edvisor.ai), an ITS Platform that endeavors to replace the traditional in-class textbook. Our talk with Shariq helps us understand how Intelligent Tutor Systems operate and the specific design decisions that make [Edvisor.AI](http://edvisor.ai) the most well-deliberated learning system on the market.
+To better understand this subject, we first interviewed Shariq Shah, founder of Edvisor.AI, an ITS Platform that endeavors to replace the traditional in-class textbook. Our talk with Shariq helps us understand how Intelligent Tutor Systems operate and the specific design decisions that make Edvisor.AI the most well-deliberated learning system on the market.
 
 Our second interview is with Sumeet Syal, a professor in the Department of Marketing and Business Analytics. He founded a Start-up consulting firm that helps entrepreneurs navigate their market and align decisions with the start-up’s goals and values. As a professor and start-up coach, Sumeet offers a compelling perspective on AI in the classroom, drawing on his most recent role as a marketer for advanced tech devices.
 
 <figure class="blog-figure blog-figure--illustration"><img src="/images/blog/image2.jpg" alt="Illustration of a friendly AI robot surrounded by flying papers" width="800" height="500" loading="lazy" decoding="async"></figure>
 
-<!-- tab: interview-shariq | Interview w Shariq -->
+<!-- tab: interview-shariq | Interview w Shariq | Interview with Edvisor Founder Shariq Shah | SJSU alum Shariq Shah explains how Edvisor.AI, an AI-enabled textbook platform, is designed and why. -->
 
 ## ZinnStarter/Club Experience
 
@@ -101,7 +101,7 @@ Thank you, Ideators, for joining this discussion with IDEAS Club, as Shariq deli
 
 <figure class="blog-figure blog-figure--full"><img src="/images/blog/image6.png" alt="Edvisor.ai banner: AI-augmented Learning" width="1220" height="254" loading="lazy" decoding="async"></figure>
 
-<!-- tab: interview-sumeet | Interview w Sumeet -->
+<!-- tab: interview-sumeet | Interview w Sumeet | Interview with Professor Sumeet Syal | Marketing professor and start-up coach Sumeet Syal on AI in the classroom. -->
 
 <figure class="blog-figure"><img src="/images/blog/image7.jpg" alt="A speaker presenting to a seated audience in a lecture room" width="1400" height="763" loading="lazy" decoding="async"></figure>
 

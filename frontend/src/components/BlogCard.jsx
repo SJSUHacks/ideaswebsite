@@ -7,9 +7,9 @@ function formatDate(dateString) {
   return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 }
 
-function BlogCard({ slug, title, date, author, excerpt }) {
+function BlogCard({ slug, hash, title, date, author, excerpt }) {
   return (
-    <Link to={`/blog/${slug}`} className="blog-card">
+    <Link to={`/blog/${slug}${hash ? `#${hash}` : ''}`} className="blog-card">
       <div className="blog-card-meta">
         <span className="blog-card-date">{formatDate(date)}</span>
         <span className="blog-card-dot">·</span>

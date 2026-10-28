@@ -18,9 +18,20 @@ function BlogListPage() {
         <p className="blog-empty">No posts yet — check back soon.</p>
       ) : (
         <div className="blog-grid">
-          {posts.map(post => (
-            <BlogCard key={post.slug} {...post} />
-          ))}
+          {posts.flatMap(post => post.tabs
+            ? post.tabs.map(tab => (
+                <BlogCard
+                  key={`${post.slug}#${tab.id}`}
+                  slug={post.slug}
+                  hash={tab.id}
+                  title={tab.title}
+                  date={post.date}
+                  author={post.author}
+                  excerpt={tab.excerpt}
+                />
+              ))
+            : [<BlogCard key={post.slug} {...post} />]
+          )}
         </div>
       )}
     </div>

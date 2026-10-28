@@ -62,8 +62,10 @@ function BlogTabs({ tabs }) {
           aria-labelledby={`tab-${tab.id}`}
           tabIndex={0}
           hidden={index !== activeIndex}
-          dangerouslySetInnerHTML={{ __html: tab.html }}
-        />
+        >
+          <h2 className="blog-tab-title">{tab.title}</h2>
+          <div dangerouslySetInnerHTML={{ __html: tab.html }} />
+        </div>
       ))}
     </div>
   );
